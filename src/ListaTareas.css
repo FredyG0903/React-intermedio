@@ -1,0 +1,59 @@
+.lista-tareas {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.agregar-tarea {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-tarea {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-tarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.boton-agregar {
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.boton-agregar:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.boton-agregar:active {
+  transform: translateY(0);
+}
+
+.no-tareas {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-top: 30px;
+}
+
+.tareas-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
