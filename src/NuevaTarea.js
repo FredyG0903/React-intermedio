@@ -40,6 +40,13 @@ function NuevaTarea({ setColumnas, columnaInicial }) {
           ...nuevasColumnas[columnaInicial],
           tareas: [...nuevasColumnas[columnaInicial].tareas, nuevaTarea]
         };
+        
+        // Guardar en localStorage después de agregar tarea
+        const usuarioActual = localStorage.getItem('usuarioActual');
+        if (usuarioActual) {
+          localStorage.setItem(`columnas_${usuarioActual}`, JSON.stringify(nuevasColumnas));
+        }
+        
         return nuevasColumnas;
       });
 

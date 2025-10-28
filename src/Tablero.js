@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import Columna from './Columna';
 import NuevaTarea from './NuevaTarea';
 import './Tablero.css';
 
-function Tablero() {
+function Tablero({ usuarioActual }) {
   const [columnas, setColumnas] = useState({});
   const [mostrarFormNuevaColumna, setMostrarFormNuevaColumna] = useState(false);
   const [nuevaColumnaTitulo, setNuevaColumnaTitulo] = useState('');
+  
+  // Cargar columnas del usuario actual desde localStorage
+  useEffect(() => {
+    const columnasGuardadas = localStorage.getItem(`columnas_${usuarioActual}`);
+    if (columnasGuardadas) {
+      setColumnas(JSON.parse(columnasGuardadas));
+    }
+  }, [usuarioActual]);
 
   const eliminarTarea = (columnaId, index) => {
     setColumnas(prevColumnas => {
@@ -16,6 +24,9 @@ function Tablero() {
         ...nuevasColumnas[columnaId].tareas.slice(0, index),
         ...nuevasColumnas[columnaId].tareas.slice(index + 1)
       ];
+      
+      // Guardar en localStorage después de eliminar tarea
+      localStorage.setItem(`columnas_${usuarioActual}`, JSON.stringify(nuevasColumnas));
       return nuevasColumnas;
     });
   };
@@ -28,6 +39,9 @@ function Tablero() {
     setColumnas(prevColumnas => {
       const nuevasColumnas = { ...prevColumnas };
       delete nuevasColumnas[columnaId];
+      
+      // Guardar en localStorage después de eliminar columna
+      localStorage.setItem(`columnas_${usuarioActual}`, JSON.stringify(nuevasColumnas));
       return nuevasColumnas;
     });
   };
@@ -36,14 +50,20 @@ function Tablero() {
     if (!nuevaColumnaTitulo.trim()) return;
     
     const nuevoId = `columna-${Date.now()}`;
-    setColumnas(prevColumnas => ({
-      ...prevColumnas,
-      [nuevoId]: {
-        id: nuevoId,
-        titulo: nuevaColumnaTitulo,
-        tareas: []
-      }
-    }));
+    setColumnas(prevColumnas => {
+      const nuevasColumnas = {
+        ...prevColumnas,
+        [nuevoId]: {
+          id: nuevoId,
+          titulo: nuevaColumnaTitulo,
+          tareas: []
+        }
+      };
+      
+      // Guardar en localStorage después de agregar columna
+      localStorage.setItem(`columnas_${usuarioActual}`, JSON.stringify(nuevasColumnas));
+      return nuevasColumnas;
+    });
     setNuevaColumnaTitulo('');
     setMostrarFormNuevaColumna(false);
   };
@@ -79,6 +99,9 @@ function Tablero() {
     }
 
     setColumnas(nuevasColumnas);
+    
+    // Guardar en localStorage después de cada cambio
+    localStorage.setItem(`columnas_${usuarioActual}`, JSON.stringify(nuevasColumnas));
   };
 
   return (

@@ -1,61 +1,103 @@
 import React, { useState } from 'react';
+import Registro from './Registro';
 import './Login.css';
 
 function Login({ onLogin }) {
   const [usuario, setUsuario] = useState('');
-  const [logueado, setLogueado] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [mostrarRegistro, setMostrarRegistro] = useState(false);
+  const [mostrarPassword, setMostrarPassword] = useState(false);
 
   const handleLogin = () => {
-    if (usuario.trim() !== '') {
-      setLogueado(true);
-      if (onLogin) onLogin(usuario);
+    setError('');
+    if (!usuario.trim() || !password.trim()) {
+      setError('Por favor complete todos los campos');
+      return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const usuarioEncontrado = usuarios.find(
+      u => u.usuario === usuario && u.password === password
+    );
+
+    if (usuarioEncontrado) {
+      localStorage.setItem('usuarioActual', usuario);
+      onLogin(usuario);
+    } else {
+      setError('Usuario o contraseña incorrectos');
     }
   };
 
-  const handleLogout = () => {
-    setLogueado(false);
-    setUsuario('');
-    if (onLogin) onLogin(null);
-  };
-
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && usuario.trim() !== '') {
+    if (e.key === 'Enter') {
       handleLogin();
     }
   };
 
+  const handleRegistroExitoso = (nuevoUsuario) => {
+    setMostrarRegistro(false);
+    setUsuario(nuevoUsuario);
+  };
+
+  if (mostrarRegistro) {
+    return (
+      <Registro 
+        onRegistroExitoso={handleRegistroExitoso}
+        onCancelar={() => setMostrarRegistro(false)}
+      />
+    );
+  }
+
   return (
     <div className="login-container">
-      {logueado ? (
-        <div className="logged-in">
-          <h2>Bienvenido, {usuario}! 👋</h2>
-          <button 
-            onClick={handleLogout}
-            className="boton-logout"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      ) : (
+      <div className="login-box">
+        <h1 className="login-titulo">Gestor de Tareas</h1>
         <div className="login-form">
-          <h2>Por favor inicia sesión</h2>
-          <input
-            type="text"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ingresa tu nombre"
-            className="input-login"
-          />
+          <div className="input-group">
+            <input
+              type="text"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Usuario"
+              className="login-input"
+            />
+          </div>
+          <div className="input-group password-group">
+            <input
+              type={mostrarPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Contraseña"
+              className="login-input"
+            />
+            <button
+              type="button"
+              onClick={() => setMostrarPassword(!mostrarPassword)}
+              className="toggle-password"
+              title={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
+              {mostrarPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          {error && <p className="error-mensaje">{error}</p>}
           <button 
             onClick={handleLogin}
-            disabled={usuario.trim() === ''}
-            className="boton-login"
+            className="login-button"
+            disabled={!usuario.trim() || !password.trim()}
           >
             Iniciar Sesión
           </button>
+          <button 
+            onClick={() => setMostrarRegistro(true)}
+            className="registro-button"
+          >
+            Crear Cuenta
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
