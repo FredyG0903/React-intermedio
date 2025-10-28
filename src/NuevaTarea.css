@@ -1,50 +1,137 @@
 .nueva-tarea-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 600px;
-  margin: 0 auto;
 }
 
-.input-group {
+.input-wrapper {
+  position: relative;
   display: flex;
-  gap: 10px;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
 }
 
 .nueva-tarea-input {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px 12px 12px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   font-size: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .nueva-tarea-input:focus {
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
-.agregar-button {
-  padding: 8px 16px;
-  background-color: #4a90e2;
+.nueva-tarea-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.fecha-limite-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.fecha-icon {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.fecha-input {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.fecha-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.fecha-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.fecha-texto {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.limpiar-input-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.limpiar-input-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.agregar-tarea-button {
+  background: #2196f3;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
-.agregar-button:hover:not(:disabled) {
-  background-color: #357abd;
+.agregar-tarea-button:hover:not(:disabled) {
+  background: #1976d2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
 }
 
-.agregar-button:disabled {
-  background-color: #ccc;
+.agregar-tarea-button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
 }
 
-.help-text {
-  text-align: center;
-  color: #666;
+.ayuda-texto {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
-  margin: 0;
+  text-align: center;
 }

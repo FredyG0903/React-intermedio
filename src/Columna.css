@@ -1,109 +1,159 @@
 .columna {
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  min-width: 280px;
-  max-width: 280px;
-  margin: 0 8px;
-  padding: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 300px;
+  margin: 0;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .columna-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 0 4px 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .columna-titulo {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #172b4d;
+  color: #ffffff;
   margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .boton-eliminar-columna {
   background: none;
   border: none;
-  color: #6b778c;
-  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24px;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 6px;
   line-height: 1;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .boton-eliminar-columna:hover {
-  background-color: rgba(255, 0, 0, 0.1);
+  background-color: rgba(239, 83, 80, 0.2);
   color: #ef5350;
 }
 
 .tareas-lista {
   min-height: 100px;
   padding: 4px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .tareas-lista.dragging-over {
-  background-color: rgba(54, 179, 126, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
 }
 
 .tarea-card {
-  background: white;
-  border-radius: 6px;
-  padding: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
 }
 
 .tarea-card:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .tarea-card.dragging {
-  transform: rotate(2deg);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: rotate(2deg) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  cursor: grabbing;
 }
 
 .tarea-texto {
   margin: 0;
-  font-size: 0.9rem;
-  color: #172b4d;
+  font-size: 0.95rem;
+  color: #ffffff;
   word-break: break-word;
-  flex: 1;
+  line-height: 1.4;
+}
+
+.tarea-fecha {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  width: fit-content;
+}
+
+.tarea-fecha.vencida {
+  color: #ff8a80;
+  background: rgba(239, 83, 80, 0.2);
+}
+
+.tarea-fecha.hoy {
+  color: #ffd180;
+  background: rgba(255, 152, 0, 0.2);
+}
+
+.tarea-fecha.mañana {
+  color: #ffe57f;
+  background: rgba(255, 193, 7, 0.2);
+}
+
+.tarea-fecha.proxima {
+  color: #b9f6ca;
+  background: rgba(76, 175, 80, 0.2);
+}
+
+.fecha-icon {
+  font-size: 1rem;
 }
 
 .tarea-acciones {
   display: flex;
-  gap: 4px;
-  margin-left: 8px;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 4px;
 }
 
 .boton-eliminar {
-  background: none;
+  background: rgba(239, 83, 80, 0.1);
   border: none;
-  padding: 4px;
+  padding: 6px;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.2s ease;
-  border-radius: 4px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  color: #ff8a80;
 }
 
 .boton-eliminar:hover {
   opacity: 1;
-  background-color: rgba(255, 0, 0, 0.1);
+  background: rgba(239, 83, 80, 0.2);
+  transform: translateY(-1px);
 }
 
 .no-tareas {
-  color: #6b778c;
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  padding: 16px;
+  padding: 20px;
   font-size: 0.9rem;
   font-style: italic;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 8px 0;
 }

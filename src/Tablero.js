@@ -5,24 +5,7 @@ import NuevaTarea from './NuevaTarea';
 import './Tablero.css';
 
 function Tablero() {
-  const [columnas, setColumnas] = useState({
-    pendiente: {
-      id: 'pendiente',
-      titulo: 'Pendiente',
-      tareas: ['Diseñar logo', 'Configurar entorno React']
-    },
-    progreso: {
-      id: 'progreso',
-      titulo: 'En progreso',
-      tareas: ['Crear componentes base']
-    },
-    completada: {
-      id: 'completada',
-      titulo: 'Completada',
-      tareas: ['Inicializar repositorio']
-    }
-  });
-
+  const [columnas, setColumnas] = useState({});
   const [mostrarFormNuevaColumna, setMostrarFormNuevaColumna] = useState(false);
   const [nuevaColumnaTitulo, setNuevaColumnaTitulo] = useState('');
 
@@ -101,7 +84,13 @@ function Tablero() {
   return (
     <div className="tablero">
       <div className="tablero-header">
-        <NuevaTarea setColumnas={setColumnas} columnaInicial="pendiente" />
+        {Object.keys(columnas).length > 0 ? (
+          <NuevaTarea setColumnas={setColumnas} columnaInicial={Object.keys(columnas)[0]} />
+        ) : (
+          <div className="mensaje-inicial">
+            Comienza creando una columna para tu tablero
+          </div>
+        )}
         <button 
           className="boton-nueva-columna"
           onClick={() => setMostrarFormNuevaColumna(true)}
@@ -118,6 +107,7 @@ function Tablero() {
             onChange={(e) => setNuevaColumnaTitulo(e.target.value)}
             placeholder="Nombre de la columna"
             className="input-nueva-columna"
+            autoFocus
           />
           <div className="botones-nueva-columna">
             <button 
@@ -142,16 +132,23 @@ function Tablero() {
 
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="columnas-container">
-          {Object.values(columnas).map(columna => (
-            <Columna 
-              key={columna.id}
-              id={columna.id}
-              titulo={columna.titulo}
-              tareas={columna.tareas}
-              onEliminarTarea={eliminarTarea}
-              onEliminarColumna={eliminarColumna}
-            />
-          ))}
+          {Object.keys(columnas).length === 0 ? (
+            <div className="tablero-vacio">
+              <h2>¡Bienvenido a tu Tablero!</h2>
+              <p>Haz clic en "+ Nueva Columna" para comenzar</p>
+            </div>
+          ) : (
+            Object.values(columnas).map(columna => (
+              <Columna 
+                key={columna.id}
+                id={columna.id}
+                titulo={columna.titulo}
+                tareas={columna.tareas}
+                onEliminarTarea={eliminarTarea}
+                onEliminarColumna={eliminarColumna}
+              />
+            ))
+          )}
         </div>
       </DragDropContext>
     </div>

@@ -1,11 +1,11 @@
 .app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: #f0f2f5;
-  padding: 20px;
 }
 
-.app h1 {
-  text-align: center;
-  color: #172b4d;
-  margin-bottom: 20px;
+/* Aseguramos que el contenido principal ocupe todo el espacio disponible */
+.app > *:not(.banner) {
+  flex: 1;
 }
