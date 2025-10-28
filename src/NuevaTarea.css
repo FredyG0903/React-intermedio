@@ -1,0 +1,50 @@
+.nueva-tarea-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.nueva-tarea-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.nueva-tarea-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.agregar-button {
+  padding: 8px 16px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.agregar-button:hover:not(:disabled) {
+  background-color: #357abd;
+}
+
+.agregar-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.help-text {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  margin: 0;
+}
